@@ -39,7 +39,7 @@ inputs = {
       ]
       egress = [
         {
-          protocol        = "tcp"
+          protocol        = "-1"
           rule_no         = 100
           action          = "allow"
           cidr_block      = "0.0.0.0/0"
@@ -66,6 +66,6 @@ dependency "subnets" {
   config_path = "../subnet"
 
   mock_outputs = {
-    subnets_ids = ["subnet"]
+    subnets_ids = ["subnet-fake"]
   }
 }
