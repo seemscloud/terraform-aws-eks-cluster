@@ -1,7 +1,7 @@
 resource "aws_eks_node_group" "eks_node_group" {
-  cluster_name    = var.eks_id
-  node_group_name = var.name
-  node_role_arn   = aws_iam_role.iam_role.id
+  cluster_name    = var.cluster_name
+  node_group_name = var.node_group_name
+  node_role_arn   = aws_iam_role.iam_role.arn
   subnet_ids      = var.subnets_ids
 
   scaling_config {
@@ -11,9 +11,11 @@ resource "aws_eks_node_group" "eks_node_group" {
   }
 
   instance_types = var.instance_types
+  capacity_type  = var.capacity_type
+  disk_size      = var.disk_size
 
   tags = merge(
-    { "Name" = var.name },
+    { "Name" = var.node_group_name },
     var.tags,
     var.default_tags
   )
@@ -25,16 +27,17 @@ resource "aws_eks_node_group" "eks_node_group" {
 }
 
 resource "aws_iam_role" "iam_role" {
-  name = var.name
+  name = var.node_group_name
 
   assume_role_policy = var.assume_role_policy
 
+
+
   tags = merge(
-    { "Name" = var.name },
+    { "Name" = var.node_group_name },
     var.tags,
     var.default_tags
   )
-
 }
 
 resource "aws_iam_role_policy_attachment" "role_policy_attachment" {

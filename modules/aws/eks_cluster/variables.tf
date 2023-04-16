@@ -20,6 +20,18 @@ variable "subnets_ids" {
   type = list(string)
 }
 
+variable "security_group_ids" {
+  type = list(string)
+}
+
+variable "service_ipv4_cidr" {
+  type = string
+}
+
+variable "ip_family" {
+  type = string
+}
+
 variable "assume_role_policy" {
   type = string
 }

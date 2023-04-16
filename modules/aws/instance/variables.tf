@@ -13,8 +13,6 @@ variable "content" {
     object({
       ami                  = string
       instance_type        = string
-      subnet_id            = string
-      security_group_ids   = list(string)
       key_name             = string
       network_interface_id = string
     })

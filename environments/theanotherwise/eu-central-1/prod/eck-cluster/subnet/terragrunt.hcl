@@ -7,11 +7,11 @@ terraform {
 }
 
 locals {
-  name = "bastion"
+  name = "eck-cluster"
 
   tags = {
-    Project = "Seems Cloud (Bastion)"
-    Service = "Seems Cloud (Bastion)"
+    Project = "ECK Cluster"
+    Service = "ECK Cluster"
   }
 }
 
@@ -22,21 +22,21 @@ inputs = {
   content = [
     {
       vpc_id                  = dependency.vpc.outputs.vpc_id
-      cidr_block              = "10.255.255.0/28"
+      cidr_block              = "10.255.10.0/24"
       zone                    = "eu-central-1a"
-      map_public_ip_on_launch = false
+      map_public_ip_on_launch = true
     },
     {
       vpc_id                  = dependency.vpc.outputs.vpc_id
-      cidr_block              = "10.255.255.16/28"
+      cidr_block              = "10.255.11.0/24"
       zone                    = "eu-central-1b"
-      map_public_ip_on_launch = false
+      map_public_ip_on_launch = true
     },
     {
       vpc_id                  = dependency.vpc.outputs.vpc_id
-      cidr_block              = "10.255.255.32/28"
+      cidr_block              = "10.255.12.0/24"
       zone                    = "eu-central-1c"
-      map_public_ip_on_launch = false
+      map_public_ip_on_launch = true
     }
   ]
 }

@@ -3,15 +3,15 @@ include {
 }
 
 terraform {
-  source = "${get_parent_terragrunt_dir()}/..//modules/aws/eks"
+  source = "${get_parent_terragrunt_dir()}/..//modules/aws/eks_cluster"
 }
 
 locals {
-  name = "eks-lorem"
+  name = "eck-cluster"
 
   tags = {
-    Project = "Lorem Ipsum"
-    Service = "Lorem Ipsum"
+    Project = "Seems Cloud - ECK Cluster"
+    Service = "Seems Cloud - ECK Cluster"
   }
 }
 
@@ -22,9 +22,12 @@ inputs = {
   cluster_version         = "1.26"
   vpc_id                  = dependency.vpc.outputs.vpc_id
   subnets_ids             = dependency.subnets.outputs.subnets_ids
-  endpoint_private_access = false
+  security_group_ids      = dependency.security_group.outputs.security_group_ids
+  endpoint_private_access = true
   endpoint_public_access  = true
   public_access_cidrs     = ["0.0.0.0/0"]
+  service_ipv4_cidr       = "172.20.0.0/16"
+  ip_family               = "ipv4"
 
   assume_role_policy = <<EOF
 {
@@ -43,18 +46,25 @@ EOF
 }
 
 dependency "vpc" {
-  config_path = "../vpc"
+  config_path = "../../vpc"
 
   mock_outputs = {
-    vpc_id = "vpc-id-fake"
-    sg_id  = "sg-id-fake"
+    vpc_id = "vpc-fake"
   }
 }
 
 dependency "subnets" {
-  config_path = "../subnets"
+  config_path = "../subnet"
 
   mock_outputs = {
     subnets_ids = "subnets-ids-fake"
+  }
+}
+
+dependency "security_group" {
+  config_path = "../security_group"
+
+  mock_outputs = {
+    security_group_ids = ["security-group-fake"]
   }
 }

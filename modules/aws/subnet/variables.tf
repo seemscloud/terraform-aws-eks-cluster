@@ -11,9 +11,10 @@ variable "name" {
 variable "content" {
   type = list(
     object({
-      vpc_id     = string
-      cidr_block = string
-      zone       = string
+      vpc_id                  = string
+      cidr_block              = string
+      zone                    = string
+      map_public_ip_on_launch = bool
     })
   )
 }

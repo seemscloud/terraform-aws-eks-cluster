@@ -7,6 +7,12 @@ resource "aws_eks_cluster" "eks_cluster" {
     endpoint_private_access = var.endpoint_private_access
     endpoint_public_access  = var.endpoint_public_access
     public_access_cidrs     = var.public_access_cidrs
+    security_group_ids      = var.security_group_ids
+  }
+
+  kubernetes_network_config {
+    service_ipv4_cidr = var.service_ipv4_cidr
+    ip_family         = var.ip_family
   }
 
   version = var.cluster_version

@@ -3,12 +3,12 @@ variable "aws_region_name" {
 }
 
 # Resource
-variable "name" {
+variable "node_group_name" {
   type    = string
   default = "default"
 }
 
-variable "eks_id" {
+variable "cluster_name" {
   type = string
 }
 
@@ -26,6 +26,14 @@ variable "scaling_config" {
 
 variable "instance_types" {
   type = list(string)
+}
+
+variable "capacity_type" {
+  type = string
+}
+
+variable "disk_size" {
+  type = number
 }
 
 variable "subnets_ids" {
